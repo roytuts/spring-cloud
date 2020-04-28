@@ -1,0 +1,19 @@
+server:
+   port: 9090
+   
+spring:
+   cloud:
+       gateway:
+           routes:
+            - id: currency-conversion-service
+              uri: http://localhost:9100/
+              predicates:
+               - Path=/cc-converter/**
+              filters:
+               - RewritePath=/cc-converter/from/(?<from>.*)/to/(?<to>.*)/quantity/(?<quantity>.*), /currency-converter/from/$\{from}/to/$\{to}/quantity/$\{quantity}
+            - id: forex-service
+              uri: http://localhost:9000/, http://localhost:9001/
+              predicates:
+               - Path=/fx-exchange/**
+              filters:
+               - RewritePath=/fx-exchange/from/(?<from>.*)/to/(?<to>.*), /forex-exchange/from/$\{from}/to/$\{to}
