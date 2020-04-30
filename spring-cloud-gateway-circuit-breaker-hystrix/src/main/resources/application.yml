@@ -1,0 +1,42 @@
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 2000
+
+server:
+   port: 9090
+   
+spring:
+   application:
+       name: gateway
+   cloud:
+       gateway:
+           routes:
+            - id: currency-conversion-service
+              #uri: http://localhost:9100/
+              uri: lb://currency-conversion-service/
+              predicates:
+               - Path=/cc-converter/**
+              filters:
+               - RewritePath=/cc-converter/from/(?<from>.*)/to/(?<to>.*)/quantity/(?<quantity>.*), /currency-converter/from/$\{from}/to/$\{to}/quantity/$\{quantity}
+               - name: Hystrix
+                 args:
+                    name: hystrixFx
+                    fallbackUri: forward:/cc-converter/fallback
+            - id: forex-service
+              #uri: http://localhost:9000/, http://localhost:9001/
+              uri: lb://forex-service/
+              predicates:
+               - Path=/fx-exchange/**
+              filters:
+               - RewritePath=/fx-exchange/from/(?<from>.*)/to/(?<to>.*), /forex-exchange/from/$\{from}/to/$\{to}
+               - name: Hystrix
+                 args:
+                    name: hystrixCc
+                    fallbackUri: forward:/fx-exchange/fallback
+           discovery:
+              locator:
+                 enabled: true
+                 lower-case-service-id: true
+
+eureka:
+   client:
+      service-url:
+         default-zone: http://localhost:8761/eureka
