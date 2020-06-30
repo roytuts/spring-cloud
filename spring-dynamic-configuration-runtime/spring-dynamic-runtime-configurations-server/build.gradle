@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '2.3.1.RELEASE'
+	}
+	
+    repositories {
+    	mavenCentral()
+    }
+    
+    dependencies {
+    	classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+}
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	implementation("org.springframework.cloud:spring-cloud-config-server:2.2.3.RELEASE")
+	
+	//required for jdk 9 or above
+	runtimeOnly('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR6'
+    }
+}
