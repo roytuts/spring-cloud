@@ -1,0 +1,37 @@
+buildscript {
+	ext {
+		springBootVersion = '2.3.3.RELEASE'
+	}
+	
+    repositories {
+    	mavenCentral()
+    }
+    
+    dependencies {
+    	classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'java-library'
+    id "io.spring.dependency-management" version "1.0.10.RELEASE"
+}
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation("org.springframework.cloud:spring-cloud-starter-zipkin")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR7'
+    }
+}
