@@ -1,1 +1,1 @@
-You can read tutorial https://www.roytuts.com/spring-centralized-runtime-properties-configuration-without-refreshing-the-client/
+You can read tutorial https://roytuts.com/spring-centralized-runtime-properties-configuration-without-refreshing-the-client/

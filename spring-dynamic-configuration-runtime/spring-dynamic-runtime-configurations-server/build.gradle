@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.1.RELEASE'
+		springBootVersion = '2.4.3'
 	}
 	
     repositories {
@@ -15,7 +15,7 @@ buildscript {
 plugins {
     id 'java-library'
     id 'org.springframework.boot' version "${springBootVersion}"
-    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
 }
 
 sourceCompatibility = 12
@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.cloud:spring-cloud-config-server:2.2.3.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-config-server:3.0.2")
 	
 	//required for jdk 9 or above
 	runtimeOnly('javax.xml.bind:jaxb-api:2.4.0-b180830.0359')
@@ -34,6 +34,6 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR6'
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.0'
     }
 }
