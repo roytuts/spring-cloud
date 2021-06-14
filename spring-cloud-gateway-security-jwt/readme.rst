@@ -1,0 +1,1 @@
+You can read tutorial https://roytuts.com/spring-cloud-gateway-security-with-jwt-json-web-token/
